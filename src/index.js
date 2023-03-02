@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore } from "redux";
+import { legacy_createStore as createStore,applyMiddleware} from "redux";
 import { Provider } from "react-redux";
 import { myReducer } from './reducers';
+import thunk from "redux-thunk"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const depo = createStore(myReducer);
+const depo = createStore(myReducer, applyMiddleware(thunk));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +19,17 @@ root.render(
     <BrowserRouter>
       <>
         <App />
+        <ToastContainer
+        	position="bottom-left"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"/>
       </>
     </BrowserRouter>
   </Provider>
